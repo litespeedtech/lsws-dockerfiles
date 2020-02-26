@@ -1,0 +1,18 @@
+language: shell
+os: linux
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
+  slack:
+    secure: MY1VT3Cv7lZ2EhNCbzvlqNq4HIKtI+EzjZXTVXnwAZTHuABw+EGmX67q1q6vyyY68lQdtUe/sRh+Q8KbaDKl74P3ZzHZQMN5tZN8RsXmzAAj8ZqDhtOFjreIXlfNjR18ciKIAOQdAZgVCwg/PyGdiCACJmQeI19qRdExMofhAT9W8q6ErEFHFb7QByj+mgbymL/B2LjH1sSEb0wSQEM64VQFDUM5vKKbDWaje+jGBf/W8Ro+vJYGMO/cl3xhGtCJOU+/GwXbylkGq8JCXtpJMn8VxhL5IlP8t3GmgOVZOtL6zt1ZXMblGQSsk7O/rM/lYAZSETUyMO1XivfxXvkvoZbISOpaY0yG58Z5FoQTiGMSL9Qwqv5NBSLcoQdjGCFDrwWmIrLKObmZ3TNazbqwY8n7zCPxHqDl+ZiQvAlhgndvbgTbVG5WthBQv81voXcUukX3sAA2J6yMHxaus32s8dHRayUwPvaxZNrLuToH8pXdhO9XvuIGjAERWwBd90ru1o9quzlilz2JIQH8fFWAjJX23bMDvucqOEfjpMTFFs4Mc5/CkIuQ/9m9eOvvy7wtvPAO51+v+xyr36G+COxUdo/GnbN3uP840QxIlMzf64VKKzlAe0v50VMd3iISwsIAgDYwIIFngxVKvlIDe7hK/n0vgVCgXFmT6YOdnPBuC8g=
+    template:
+      - "Repo %{repository_slug} *%{result}* build (<%{build_url}|#%{build_number}>) for commit (<%{compare_url}|%{commit}>)"
+      - "%{author}: _%{commit_message}_"
+      - "Execution time: *%{duration}*"
+      - "Message: *%{message}*"
+    on_success: always
+services:
+  - docker
+ 
