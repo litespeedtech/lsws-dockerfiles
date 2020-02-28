@@ -63,6 +63,28 @@
         <checkPublicCache>1</checkPublicCache>
       </cachePolicy>
     </cache>
+    <extProcessorList>
+      <extProcessor>
+        <type>lsapi</type>
+        <name>$VH_NAME_lsphp</name>
+        <address>uds://tmp/lshttpd/$VH_NAME_lsphp.sock</address>
+        <maxConns>35</maxConns>
+        <env>PHP_LSAPI_CHILDREN=35</env>        
+        <initTimeout>60</initTimeout>
+        <retryTimeout>0</retryTimeout>
+        <respBuffer>0</respBuffer>
+        <autoStart>1</autoStart>
+        <path>/usr/local/lsws/lsphp74/bin/lsphp</path>
+        <backlog>100</backlog>
+        <instances>1</instances>
+        <extMaxIdleTime>-1</extMaxIdleTime>
+        <priority>0</priority>
+        <memSoftLimit>2047M</memSoftLimit>
+        <memHardLimit>2047M</memHardLimit>
+        <procSoftLimit>1000</procSoftLimit>
+        <procHardLimit>1000</procHardLimit>
+      </extProcessor>
+    </extProcessorList>    
     <rewrite>
       <enable>1</enable>
       <logLevel>0</logLevel>
