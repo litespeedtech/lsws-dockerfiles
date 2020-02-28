@@ -1,5 +1,6 @@
 #FROM debian:jessie-slim
 FROM ubuntu:18.04
+ENV LS_FD='/usr/local/lsws'
 
 ARG LSWS_VERSION
 ARG PHP_VERSION
@@ -20,15 +21,15 @@ RUN wget -O -  https://get.acme.sh | sh
 
 EXPOSE 7080
 
-ADD docker.xml /usr/local/lsws/conf/templates/docker.xml
-ADD httpd_config.sh /usr/local/lsws/bin/httpd_config.sh
-add httpd_config.conf /usr/local/lsws/conf/httpd_config.conf
-add htpasswd /usr/local/lsws/admin/conf/htpasswd
-RUN /usr/local/lsws/bin/httpd_config.sh $PHP_VERSION && rm /usr/local/lsws/bin/httpd_config.sh
-RUN chown 999:999 /usr/local/lsws/conf -R
-RUN cp -RP /usr/local/lsws/conf/ /usr/local/lsws/.conf/
-RUN cp -RP /usr/local/lsws/admin/conf /usr/local/lsws/admin/.conf/
-RUN ln -sf /usr/local/lsws/$PHP_VERSION/bin/lsphp /usr/local/lsws/fcgi-bin/lsphp7
+ADD docker.xml $LS_FD/conf/templates/docker.xml
+ADD httpd_config.sh $LS_FD/bin/httpd_config.sh
+add httpd_config.conf $LS_FD/conf/httpd_config.conf
+add htpasswd $LS_FD/admin/conf/htpasswd
+RUN $LS_FD/bin/httpd_config.sh $PHP_VERSION && rm $LS_FD/bin/httpd_config.sh
+RUN chown 999:999 $LS_FD/conf -R
+RUN cp -RP $LS_FD/conf/ $LS_FD/.conf/
+RUN cp -RP $LS_FD/admin/conf $LS_FD/admin/.conf/
+RUN ln -sf $LS_FD/$PHP_VERSION/bin/lsphp $LS_FD/fcgi-bin/lsphp7
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

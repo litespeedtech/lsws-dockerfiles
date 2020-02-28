@@ -46,8 +46,8 @@ update_template(){
 }
 
 php_path(){
-    if [ -f ${LS_FD}/conf/template/docker.xml ]; then
-        sed -i "s/lsphpver/${1}/" ${LS_FD}/conf/template/docker.xml
+    if [ -f ${LS_FD}/conf/templates/docker.xml ]; then
+        sed -i "s/lsphpver/${1}/" ${LS_FD}/conf/templates/docker.xml
     else
         echo 'docker.xml template not found!'
         exit 1
