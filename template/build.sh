@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x 
 LSWS_VERSION=''
 PHP_VERSION=''
 PUSH=''

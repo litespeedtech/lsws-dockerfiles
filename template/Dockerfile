@@ -20,7 +20,7 @@ RUN wget -O -  https://get.acme.sh | sh
 
 EXPOSE 7080
 
-ADD docker.conf /usr/local/lsws/conf/templates/docker.conf
+ADD docker.xml /usr/local/lsws/conf/templates/docker.xml
 ADD httpd_config.sh /usr/local/lsws/bin/httpd_config.sh
 add httpd_config.conf /usr/local/lsws/conf/httpd_config.conf
 add htpasswd /usr/local/lsws/admin/conf/htpasswd

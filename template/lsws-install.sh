@@ -43,7 +43,7 @@ update_install(){
 
 update_function(){    
     sed -i '/read [A-Z]/d' functions.sh
-    sed -i 's/HTTP_PORT=$TMP_PORT/HTTP_PORT=8088/g' functions.sh
+    sed -i 's/HTTP_PORT=$TMP_PORT/HTTP_PORT=8080/g' functions.sh
     sed -i 's/ADMIN_PORT=$TMP_PORT/ADMIN_PORT=7080/g' functions.sh
     sed -i "/^license()/i\
     PASS_ONE=${ADMIN_PASS}\
