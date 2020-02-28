@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -x 
 LSWS_VERSION=''
 PHP_VERSION=''
 PUSH=''
@@ -34,7 +35,7 @@ test_image(){
     docker exec -it ${ID} su -c 'mkdir -p /var/www/vhosts/localhost/html/ \
     && echo "<?php phpinfo();" > /var/www/vhosts/localhost/html/index.php \
     && wget -q --no-check-certificate http://license.litespeedtech.com/reseller/trial.key -P /usr/local/lsws/conf/ \
-    && /usr/local/lsws/bin/lswsctrl restart'
+    && /usr/local/lsws/bin/lswsctrl restart >/dev/null '
 
     HTTP=$(docker exec -it ${ID} curl -s -o /dev/null -Ik -w "%{http_code}" http://localhost)
     HTTPS=$(docker exec -it ${ID} curl -s -o /dev/null -Ik -w "%{http_code}" https://localhost)
@@ -87,7 +88,7 @@ while [ ! -z "${1}" ]; do
         -tag | --tag | -TAG | -T) shift
             TAG="${1}"
             ;;       
-        --push ) shift
+        --push )
             PUSH=true
             ;;            
         *) 

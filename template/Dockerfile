@@ -24,7 +24,7 @@ ADD docker.xml /usr/local/lsws/conf/templates/docker.xml
 ADD httpd_config.sh /usr/local/lsws/bin/httpd_config.sh
 add httpd_config.conf /usr/local/lsws/conf/httpd_config.conf
 add htpasswd /usr/local/lsws/admin/conf/htpasswd
-RUN /usr/local/lsws/bin/httpd_config.sh && rm /usr/local/lsws/bin/httpd_config.sh
+RUN /usr/local/lsws/bin/httpd_config.sh $PHP_VERSION && rm /usr/local/lsws/bin/httpd_config.sh
 RUN chown 999:999 /usr/local/lsws/conf -R
 RUN cp -RP /usr/local/lsws/conf/ /usr/local/lsws/.conf/
 RUN cp -RP /usr/local/lsws/admin/conf /usr/local/lsws/admin/.conf/
