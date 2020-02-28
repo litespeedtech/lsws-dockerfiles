@@ -13,6 +13,18 @@ notifications:
       - "Execution time: *%{duration}*"
       - "Message: *%{message}*"
     on_success: always
+
 services:
   - docker
+env:
+  - LSWS_VERSION=5.4.5 PHP_VERSION=lsphp74 FOLDER=template
+
+script:
+  - |
+    if [ $TRAVIS_BRANCH == "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        cd $FOLDER && bash build.sh -lsws $LSWS_VERSION -php $PHP_VERSION -tag "$TAG" --push
+    else
+        cd $FOLDER && bash build.sh -lsws $LSWS_VERSION -php $PHP_VERSION
+    fi
  

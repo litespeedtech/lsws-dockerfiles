@@ -3,6 +3,17 @@ USER='nobody'
 GROUP='nogroup'
 ADMIN_PASS='litespeed'
 LSDIR='/usr/local/lsws'
+LSWS_MAIN='5.0'
+LSWS_VERSION=''
+
+check_input(){
+    if [ -z "${1}" ]; then
+        echo 'Please specify a version!'
+        exit 1
+    else
+        LSWS_VERSION="${1}"  
+    fi
+}
 
 basic_install(){
     apt-get update && apt-get install net-tools apt-util openssl -y
@@ -17,9 +28,9 @@ del_trial(){
 }
 
 lsws_download(){
-    wget -q --no-check-certificate https://www.litespeedtech.com/packages/5.0/lsws-5.4.5-ent-x86_64-linux.tar.gz
+    wget -q --no-check-certificate https://www.litespeedtech.com/packages/${LSWS_MAIN}/lsws-${LSWS_VERSION}-ent-x86_64-linux.tar.gz
     tar xzf lsws-*-ent-x86_64-linux.tar.gz && rm -f lsws-*.tar.gz
-    cd lsws-5.4.5
+    cd lsws-${LSWS_VERSION}
     add_trial
 }
 
@@ -32,7 +43,7 @@ update_install(){
 
 update_function(){    
     sed -i '/read [A-Z]/d' functions.sh
-    sed -i 's/HTTP_PORT=$TMP_PORT/HTTP_PORT=443/g' functions.sh
+    sed -i 's/HTTP_PORT=$TMP_PORT/HTTP_PORT=8088/g' functions.sh
     sed -i 's/ADMIN_PORT=$TMP_PORT/ADMIN_PORT=7080/g' functions.sh
     sed -i "/^license()/i\
     PASS_ONE=${ADMIN_PASS}\
@@ -83,6 +94,7 @@ lsws_restart(){
 }    
 
 main(){
+    check_input ${1}
     basic_install
     lsws_download
     update_install
@@ -95,4 +107,4 @@ main(){
     del_trial
 }
 
-main
+main ${1}

@@ -7,7 +7,7 @@ ARG PHP_VERSION
 RUN apt-get update && apt-get install wget curl tzdata -y
 
 COPY lsws-install.sh /
-RUN chmod +x /lsws-install.sh && bash /lsws-install.sh
+RUN chmod +x /lsws-install.sh && bash /lsws-install.sh $LSWS_VERSION
 
 RUN apt-get install mysql-client $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
     $PHP_VERSION-curl $PHP_VERSION-json $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
