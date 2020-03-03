@@ -6,7 +6,7 @@ fi
 if [ -z "$(ls -A -- "${LSDIR}/admin/conf/")" ]; then
 	cp -R ${LSDIR}/admin/.conf/* ${LSDIR}/admin/conf/
 fi
-if [ -z ${LSDIR}/conf/serial.no ] && [ -z ${LSDIR}/conf/license.key ]; then
+if [ ! -e ${LSDIR}/conf/serial.no ] && [ ! -e ${LSDIR}/conf/license.key ]; then
     rm -f ${LSDIR}/conf/trial.key*
     wget -P ${LSDIR}/conf http://license.litespeedtech.com/reseller/trial.key
 fi
