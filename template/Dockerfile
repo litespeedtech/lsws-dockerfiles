@@ -5,7 +5,7 @@ ENV LS_FD='/usr/local/lsws'
 ARG LSWS_VERSION
 ARG PHP_VERSION
 
-RUN apt-get update && apt-get install wget curl tzdata -y
+RUN apt-get update && apt-get install wget curl tzdata cron -y
 
 COPY lsws-install.sh /
 RUN chmod +x /lsws-install.sh && bash /lsws-install.sh $LSWS_VERSION
