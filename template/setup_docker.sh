@@ -54,10 +54,16 @@ php_path(){
     fi
 }
 
+create_doc_fd(){
+    mkdir -p /var/www/vhosts/localhost/{html,logs,certs}
+    chown 1000:1000 /var/www/vhosts/localhost/ -R
+}
+
 main(){
     check_php_input ${1}
     php_path ${PHP_VER}
     update_listener
     update_template
+    create_doc_fd
 }
 main ${1}

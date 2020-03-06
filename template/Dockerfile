@@ -22,10 +22,11 @@ RUN wget -O -  https://get.acme.sh | sh
 EXPOSE 7080
 
 ADD docker.xml $LS_FD/conf/templates/docker.xml
-ADD httpd_config.sh $LS_FD/bin/httpd_config.sh
+ADD setup_docker.sh $LS_FD/bin/setup_docker.sh
 add httpd_config.conf $LS_FD/conf/httpd_config.conf
 add htpasswd $LS_FD/admin/conf/htpasswd
-RUN $LS_FD/bin/httpd_config.sh $PHP_VERSION && rm $LS_FD/bin/httpd_config.sh
+
+RUN $LS_FD/bin/setup_docker.sh $PHP_VERSION && rm $LS_FD/bin/setup_docker.sh
 RUN chown 999:999 $LS_FD/conf -R
 RUN cp -RP $LS_FD/conf/ $LS_FD/.conf/
 RUN cp -RP $LS_FD/admin/conf $LS_FD/admin/.conf/
@@ -34,4 +35,3 @@ COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 WORKDIR /var/www/vhosts/
-CMD ["/usr/local/lsws/bin/lswsctrl","start"]

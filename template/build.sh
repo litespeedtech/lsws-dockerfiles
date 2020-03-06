@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -x 
 LSWS_VERSION=''
 PHP_VERSION=''
 PUSH=''
@@ -7,11 +6,20 @@ CONFIG=''
 TAG=''
 BUILDER='litespeedtech'
 REPO='litespeed-beta'
+EPACE='        '
+
+echow(){
+    FLAG=${1}
+    shift
+    echo -e "\033[1m${EPACE}${FLAG}\033[0m${@}"
+}
 
 help_message(){
-    echo 'Command [-lsws XX] [-php lsphpXX]'
-    echo 'Command [-lsws XX] [-php lsphpXX] --push'
-    echo 'Example: build.sh -lsws 5.4.5 -php lsphp74 --push'
+    echo -e "\033[1mOPTIONS\033[0m" 
+    echow '-L, --lsws [VERSION] -P, --php [lsphpVERSION]'
+    echo "${EPACE}${EPACE}Example: bash build.sh --lsws 5.4.5 --php lsphp7.4"
+    echow '--push'
+    echo "${EPACE}${EPACE}Example: build.sh --lsws 5.4.5 --php lsphp74 --push, will push to the dockerhub"
     exit 0
 }
 
@@ -77,15 +85,15 @@ while [ ! -z "${1}" ]; do
         -[hH] | -help | --help)
             help_message
             ;;
-        -lsws | --lsws | -LSWS_VERSION | -L) shift
+        -[lL] | -lsws | --lsws) shift
             check_input "${1}"
             LSWS_VERSION="${1}"
             ;;
-        -php | --php | -PHP_VERSION | -P) shift
+        -[pP] | -php | --php) shift
             check_input "${1}"
             PHP_VERSION="${1}"
             ;;
-        -tag | --tag | -TAG | -T) shift
+        -[tT] | -tag | -TAG | --tag) shift
             TAG="${1}"
             ;;       
         --push )
