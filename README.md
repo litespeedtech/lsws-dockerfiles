@@ -1,4 +1,4 @@
-# LiteSpeed Docker Container (Beta)
+# LiteSpeed Docker Container
 [![Build Status](https://travis-ci.com/litespeedtech/lsws-docker-env.svg?branch=master)](https://hub.docker.com/r/litespeedtech/litespeed)
 [![LiteSpeed](https://img.shields.io/badge/litespeed-5.4.5-informational?style=flat&color=blue)](https://hub.docker.com/r/litespeedtech/litespeed)
 [![docker pulls](https://img.shields.io/docker/pulls/litespeedtech/litespeed?style=flat&color=blue)](https://hub.docker.com/r/litespeedtech/litespeed)
@@ -30,7 +30,7 @@ or specify the LiteSpeed version with lsphp version
 ```
 docker pull litespeedtech/litespeed-beta:5.4.5-lsphp74
 ```
-### Starting a Container
+### Start a Container
 ```
 docker run --name litespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtech/litespeed-beta:latest
 ```
@@ -40,27 +40,40 @@ docker run -d --name litespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtec
 ```
 Tip, you can get rid of `-p 7080:7080` from the command if you don’t need the web admin access.  
 
-### Verify
-We can add a sample page to make sure server is working correctly. First, we want to login to the container and add a test file. 
+### Add a sample page
+The server should start running successfully, and you should be able to log into the container. Add some files you want to display with the following command:
 ```
-docker exec -it litespeed bash
+docker exec -it openlitespeed bash
 ```
-We should see **/var/www/vhosts/** as our default `WORKDIR`. Since the default document root path is **/var/www/vhosts/localhost/html**. Simply add the following command to index.php file. 
+Your default `WORKDIR` should be `/var/www/vhosts/`, since the default document root path is `/var/www/vhosts/localhost/html`. Simply add the following command to `index.php`, then we can verify it from the browser with a public server IP address on both HTTP and HTTPS. 
 ```
 echo '<?php phpinfo();' > localhost/html/index.php
 ```
-Now we can verify it from the browser with a public server IP address or pointed Domain on both HTTP/HTTPS. 
 
-### Stopping a Container
+### Stop a Container
 Feel free to substitute the "litespeed" to the "Container_ID" if you did not define any name for the container.
 ```
 docker stop litespeed
+```
+
+## Customization
+Sometimes you may want to install more packages from the default image, or some other web server or PHP version which is not officially provided. You can build an image based on an existing image. Here’s how:
+  1. Download the dockerfile project 
+  2. `cd` into the project directory
+  3. Edit the Dockerfile here if necessary
+  4. Build, feeling free to substitute server and PHP versions to fit your needs 
+
+For example,
+```
+git clone https://github.com/litespeedtech/lsws-dockerfiles.git
+cd lsws-dockerfiles/template
+bash build.sh -L 5.4.4 -P lsphp73
 ```
 
 ## Support & Feedback
 If you still have a question after using LiteSpeed Docker, you have a few options.
 * Join [the GoLiteSpeed Slack community](litespeedtech.com/slack) for real-time discussion
 * Post to [the LiteSpeed Forums](https://www.litespeedtech.com/support/forum/) for community support
-* Reporting any issue on [Github ols-dockerfiles](https://github.com/litespeedtech/ols-dockerfiles/issues) project
+* Reporting any issue on [Github lsws-dockerfiles](https://github.com/litespeedtech/lsws-dockerfiles/issues) project
 
 **Pull requests are always welcome** 
