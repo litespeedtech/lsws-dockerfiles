@@ -36,7 +36,7 @@ update_template(){
     <vhTemplate> \
       <name>docker</name> \
       <templateFile>$SERVER_ROOT/conf/templates/docker.xml</templateFile> \
-      <listeners>Default, HTTP, HTTPS</listeners> \
+      <listeners>HTTP, HTTPS</listeners> \
       <member> \
         <vhName>localhost</vhName> \
         <vhDomain>*, localhost</vhDomain> \
