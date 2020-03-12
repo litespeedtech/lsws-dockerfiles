@@ -11,7 +11,7 @@ Install a lightweight LiteSpeed container using Stable version in Ubuntu 18.04 L
 ### Prerequisites
 *  [Install Docker](https://www.docker.com/)
 
-## Build Components
+## Building Components
 The system will regulary build LiteSpeed Latest stable version, along with the last two PHP versions.
 
 |Component|Version|
@@ -21,7 +21,7 @@ The system will regulary build LiteSpeed Latest stable version, along with the l
 |PHP|[Latest stable version](http://rpms.litespeedtech.com/debian/)|
 
 ## Usage
-### Download an image
+### Downloading an image
 Download the litespeed image, we can use latest for latest version
 ```
 docker pull litespeedtech/litespeed:latest
@@ -30,7 +30,7 @@ or specify the LiteSpeed version with lsphp version
 ```
 docker pull litespeedtech/litespeed-beta:5.4.5-lsphp74
 ```
-### Start a Container
+### Starting a Container
 ```
 docker run --name litespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtech/litespeed-beta:latest
 ```
@@ -40,7 +40,9 @@ docker run -d --name litespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtec
 ```
 Tip, you can get rid of `-p 7080:7080` from the command if you don’t need the web admin access.  
 
-### Add a sample page
+Note: The container will auto-apply a 15-day trial license. Please contact LiteSpeed to extend the trial, or apply your own license, [starting from $0](https://www.litespeedtech.com/pricing).
+
+### Adding a sample page
 The server should start running successfully, and you should be able to log into the container. Add some files you want to display with the following command:
 ```
 docker exec -it openlitespeed bash
@@ -50,7 +52,7 @@ Your default `WORKDIR` should be `/var/www/vhosts/`, since the default document 
 echo '<?php phpinfo();' > localhost/html/index.php
 ```
 
-### Stop a Container
+### Stopping a Container
 Feel free to substitute the "litespeed" to the "Container_ID" if you did not define any name for the container.
 ```
 docker stop litespeed
