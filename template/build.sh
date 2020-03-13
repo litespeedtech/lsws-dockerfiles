@@ -5,7 +5,7 @@ PUSH=''
 CONFIG=''
 TAG=''
 BUILDER='litespeedtech'
-REPO='litespeed-beta'
+REPO='litespeed'
 EPACE='        '
 
 echow(){
@@ -17,9 +17,9 @@ echow(){
 help_message(){
     echo -e "\033[1mOPTIONS\033[0m" 
     echow '-L, --lsws [VERSION] -P, --php [lsphpVERSION]'
-    echo "${EPACE}${EPACE}Example: bash build.sh --lsws 5.4.5 --php lsphp7.4"
+    echo "${EPACE}${EPACE}Example: bash build.sh --lsws 5.4.6 --php lsphp7.4"
     echow '--push'
-    echo "${EPACE}${EPACE}Example: build.sh --lsws 5.4.5 --php lsphp74 --push, will push to the dockerhub"
+    echo "${EPACE}${EPACE}Example: build.sh --lsws 5.4.6 --php lsphp74 --push, will push to the dockerhub"
     exit 0
 }
 
