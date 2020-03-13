@@ -22,8 +22,8 @@ EXPOSE 7080
 
 ADD docker.xml $LS_FD/conf/templates/docker.xml
 ADD setup_docker.sh $LS_FD/bin/setup_docker.sh
-add httpd_config.conf $LS_FD/conf/httpd_config.conf
-add htpasswd $LS_FD/admin/conf/htpasswd
+ADD httpd_config.conf $LS_FD/conf/httpd_config.conf
+ADD htpasswd $LS_FD/admin/conf/htpasswd
 
 RUN $LS_FD/bin/setup_docker.sh $PHP_VERSION && rm $LS_FD/bin/setup_docker.sh
 RUN chown 999:999 $LS_FD/conf -R
