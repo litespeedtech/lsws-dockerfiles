@@ -1,8 +1,6 @@
 # LiteSpeed Docker Container
 [![Build Status](https://travis-ci.com/litespeedtech/lsws-docker-env.svg?branch=master)](https://hub.docker.com/r/litespeedtech/litespeed)
-[![LiteSpeed](https://img.shields.io/badge/litespeed-5.4.5-informational?style=flat&color=blue)](https://hub.docker.com/r/litespeedtech/litespeed)
 [![docker pulls](https://img.shields.io/docker/pulls/litespeedtech/litespeed?style=flat&color=blue)](https://hub.docker.com/r/litespeedtech/litespeed)
-[![beta pulls](https://img.shields.io/docker/pulls/litespeedtech/litespeed-beta?label=beta%20pulls)](https://hub.docker.com/r/litespeedtech/litespeed-beta)
 [<img src="https://img.shields.io/badge/slack-LiteSpeed-blue.svg?logo=slack">](litespeedtech.com/slack) 
 [<img src="https://img.shields.io/twitter/follow/litespeedtech.svg?label=Follow&style=social">](https://twitter.com/litespeedtech)
 
