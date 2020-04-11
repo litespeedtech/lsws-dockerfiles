@@ -16,7 +16,7 @@ check_input(){
 }
 
 basic_install(){
-    apt-get update && apt-get install net-tools apt-util openssl -y
+    apt-get update && apt-get install net-tools apt-utils openssl -y
 }
 
 add_trial(){
