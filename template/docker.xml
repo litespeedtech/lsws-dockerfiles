@@ -81,8 +81,8 @@
         <priority>0</priority>
         <memSoftLimit>2047M</memSoftLimit>
         <memHardLimit>2047M</memHardLimit>
-        <procSoftLimit>1000</procSoftLimit>
-        <procHardLimit>1000</procHardLimit>
+        <procSoftLimit>3000</procSoftLimit>
+        <procHardLimit>4000</procHardLimit>
       </extProcessor>
     </extProcessorList>    
     <rewrite>
