@@ -17,8 +17,8 @@ notifications:
 services:
   - docker
 env:
-  - LSWS_VERSION=5.4.7 PHP_VERSION=lsphp74 FOLDER=template TAG=latest
-  - LSWS_VERSION=5.4.7 PHP_VERSION=lsphp73 FOLDER=template
+  - LSWS_VERSION=5.4.8 PHP_VERSION=lsphp74 FOLDER=template TAG=latest
+  - LSWS_VERSION=5.4.8 PHP_VERSION=lsphp73 FOLDER=template
 script:
   - |
     if [ $TRAVIS_BRANCH == "master" ] && [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
