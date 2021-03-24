@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV LS_FD='/usr/local/lsws'
 
 ARG LSWS_VERSION
