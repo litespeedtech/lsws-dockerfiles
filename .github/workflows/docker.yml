@@ -10,7 +10,7 @@ on:
       - master
 env:
   FOLDER: template
-  LSWS_VERSION: 5.4.11
+  LSWS_VERSION: 5.4.12
 
 jobs:
   test:
