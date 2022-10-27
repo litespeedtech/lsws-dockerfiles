@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 ENV LS_FD='/usr/local/lsws'
 
 ARG LSWS_VERSION
@@ -21,6 +21,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 RUN wget -O -  https://get.acme.sh | sh
 
 EXPOSE 7080
+ENV PATH="/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin"
 
 ADD docker.xml $LS_FD/conf/templates/docker.xml
 ADD setup_docker.sh $LS_FD/bin/setup_docker.sh

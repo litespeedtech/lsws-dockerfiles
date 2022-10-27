@@ -14,7 +14,7 @@ The system will regulary build LiteSpeed Latest stable version, along with the l
 
 |Component|Version|
 | :-------------: | :-------------: |
-|Linux|Ubuntu 20.04|
+|Linux|Ubuntu 22.04|
 |LiteSpeed|[Latest stable version](https://www.litespeedtech.com/products/litespeed-web-server/download)|
 |PHP|[Latest stable version](http://rpms.litespeedtech.com/debian/)|
 
@@ -26,7 +26,7 @@ docker pull litespeedtech/litespeed:latest
 ```
 or specify the LiteSpeed version with lsphp version
 ```
-docker pull litespeedtech/litespeed:5.4.12-lsphp80
+docker pull litespeedtech/litespeed:6.0.12-lsphp81
 ```
 ### Starting a Container
 ```
@@ -67,7 +67,7 @@ For example,
 ```
 git clone https://github.com/litespeedtech/lsws-dockerfiles.git
 cd lsws-dockerfiles/template
-bash build.sh -L 5.4.12 -P lsphp80
+bash build.sh -L 6.0.12 -P lsphp81
 ```
 
 ## Support & Feedback
