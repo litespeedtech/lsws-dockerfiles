@@ -1,5 +1,5 @@
 #!/bin/bash
-LSDIR='/usr/local/lslb'
+LSDIR='/usr/local/lsws'
 
 if [ -z "$(ls -A -- "${LSDIR}/conf/")" ]; then
 	cp -R ${LSDIR}/.conf/* ${LSDIR}/conf/
@@ -14,10 +14,10 @@ fi
 chown 999:999 ${LSDIR}/conf/ -R
 chown 999:1000 ${LSDIR}/admin/conf/ -R
 
-/usr/local/lslb/bin/lslbctrl start
+/usr/local/lsws/bin/lswsctrl start
 $@
 while true; do
-	if ! ${LSDIR}/bin/lslbctrl status | grep 'LSLB is running with PID *' > /dev/null; then
+	if ! ${LSDIR}/bin/lswsctrl status | grep 'litespeed is running with PID *' > /dev/null; then
 		break
 	fi
 	sleep 60

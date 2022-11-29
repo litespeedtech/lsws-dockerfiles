@@ -2,15 +2,16 @@
 USER='nobody'
 GROUP='nogroup'
 ADMIN_PASS='litespeed'
-LSDIR='/usr/local/lslb'
-LSLB_VERSION=''
+LSDIR='/usr/local/lsws'
+LSWS_MAIN='5'
+LSWS_VERSION=''
 
 check_input(){
     if [ -z "${1}" ]; then
         echo 'Please specify a version!'
         exit 1
     else
-        LSLB_VERSION="${1}"
+        LSWS_VERSION="${1}"
     fi
 }
 
@@ -26,11 +27,14 @@ del_trial(){
     rm -f ${LSDIR}/conf/trial.key*
 }
 
-lslb_download(){
-    cd
-    wget -q --no-check-certificate https://www.litespeedtech.com/packages/lslb/lslb-${LSLB_VERSION}-x86_64-linux.tar.gz
-    tar xzf lslb-*-x86_64-linux.tar.gz && rm -f lslb-*.tar.gz
-    cd lslb-${LSLB_VERSION}
+get_main_ver(){
+   LSWS_MAIN=${LSWS_VERSION:0:1}
+}
+
+lsws_download(){
+    wget -q --no-check-certificate https://www.litespeedtech.com/packages/${LSWS_MAIN}.0/lsws-${LSWS_VERSION}-ent-x86_64-linux.tar.gz
+    tar xzf lsws-*-ent-x86_64-linux.tar.gz && rm -f lsws-*.tar.gz
+    cd lsws-${LSWS_VERSION}
     add_trial
 }
 
@@ -43,9 +47,8 @@ update_install(){
 
 update_function(){
     sed -i '/read [A-Z]/d' functions.sh
-    sed -i 's/HTTP_PORT=$TMP_PORT/HTTP_PORT=8090/g' functions.sh
-    sed -i 's/ADMIN_PORT=$TMP_PORT/ADMIN_PORT=7090/g' functions.sh
-    sed -i '/DEFAULT_PORT=/a \ \ \ \ TMP_PORT=""' functions.sh
+    sed -i 's/HTTP_PORT=$TMP_PORT/HTTP_PORT=8080/g' functions.sh
+    sed -i 's/ADMIN_PORT=$TMP_PORT/ADMIN_PORT=7080/g' functions.sh
     sed -i "/^license()/i\
     PASS_ONE=${ADMIN_PASS}\
     PASS_TWO=${ADMIN_PASS}\
@@ -80,28 +83,29 @@ rpm_install(){
 }
 
 check_version(){
-    SERVERV=$(cat /usr/local/lslb/VERSION)
+    SERVERV=$(cat /usr/local/lsws/VERSION)
     echo "Version: ${SERVERV}"
 }
 
 run_install(){
-    echo 'Main LSLB install ...'
+    echo 'Main LSWS install ...'
     /bin/bash install.sh >/dev/null 2>&1
-    echo 'Main LSLB install finished !'
+    echo 'Main LSWS install finished !'
 }
 
-lslb_restart(){
-    ${LSDIR}/bin/lslbctrl start
+lsws_restart(){
+    ${LSDIR}/bin/lswsctrl start
 }
 
 main(){
     check_input ${1}
     basic_install
-    lslb_download
+    get_main_ver
+    lsws_download
     update_install
     update_function
     run_install
-    lslb_restart
+    lsws_restart
     gen_selfsigned_cert
     rpm_install
     check_version
