@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-LSWS_VERSION=''
+LSLB_VERSION=''
 PHP_VERSION=''
 PUSH=''
 CONFIG=''
 TAG=''
-BUILDER='litespeedtech'
-REPO='litespeed'
+#BUILDER='litespeedtech'
+#REPO='loadbalancer'
 EPACE='        '
 
 echow(){
@@ -16,10 +16,10 @@ echow(){
 
 help_message(){
     echo -e "\033[1mOPTIONS\033[0m" 
-    echow '-L, --lsws [VERSION] -P, --php [lsphpVERSION]'
-    echo "${EPACE}${EPACE}Example: bash build.sh --lsws 5.4.6 --php lsphp74"
-    echow '--push'
-    echo "${EPACE}${EPACE}Example: build.sh --lsws 5.4.6 --php lsphp74 --push, will push to the dockerhub"
+    echow '-L, --lslb [VERSION]'
+    echo "${EPACE}${EPACE}Example: bash build.sh --lslb 3.1.6"
+    #echow '--push'
+    #echo "${EPACE}${EPACE}Example: build.sh --lslb 5.4.6 --php lsphp74 --push, will push to the dockerhub"
     exit 0
 }
 
@@ -34,16 +34,16 @@ build_image(){
         help_message
     else
         echo "${1} ${2}"
-        docker build . --tag ${BUILDER}/${REPO}:${1}-${2} --build-arg LSWS_VERSION=${1} --build-arg PHP_VERSION=${2}
+        docker build . --tag ${BUILDER}/${REPO}:${1} --build-arg LSLB_VERSION=${1}
     fi    
 }
 
 test_image(){
-    ID=$(docker run -d ${BUILDER}/${REPO}:${1}-${2})
+    ID=$(docker run -d ${BUILDER}/${REPO}:${1})
     sleep 1
     docker exec -i ${ID} su -c 'mkdir -p /var/www/vhosts/localhost/html/ \
     && echo "<?php phpinfo();" > /var/www/vhosts/localhost/html/index.php \
-    && /usr/local/lsws/bin/lswsctrl restart >/dev/null '
+    && /usr/local/lslb/bin/lslbctrl restart >/dev/null '
 
     HTTP=$(docker exec -i ${ID} curl -s -o /dev/null -Ik -w "%{http_code}" http://localhost)
     HTTPS=$(docker exec -i ${ID} curl -s -o /dev/null -Ik -w "%{http_code}" https://localhost)
@@ -74,9 +74,9 @@ push_image(){
 }
 
 main(){
-    build_image ${LSWS_VERSION} ${PHP_VERSION}
-    test_image ${LSWS_VERSION} ${PHP_VERSION}
-    push_image ${LSWS_VERSION} ${PHP_VERSION} ${TAG}
+    build_image ${LSLB_VERSION} ${PHP_VERSION}
+    #test_image ${LSLB_VERSION} ${PHP_VERSION}
+    #push_image ${LSLB_VERSION} ${PHP_VERSION} ${TAG}
 }
 
 check_input ${1}
@@ -85,20 +85,16 @@ while [ ! -z "${1}" ]; do
         -[hH] | -help | --help)
             help_message
             ;;
-        -[lL] | -lsws | --lsws) shift
+        -[lL] | -lslb | --lslb) shift
             check_input "${1}"
-            LSWS_VERSION="${1}"
-            ;;
-        -[pP] | -php | --php) shift
-            check_input "${1}"
-            PHP_VERSION="${1}"
+            LSLB_VERSION="${1}"
             ;;
         -[tT] | -tag | -TAG | --tag) shift
             TAG="${1}"
             ;;       
-        --push )
-            PUSH=true
-            ;;            
+        #--push )
+        #    PUSH=true
+        #    ;;            
         *) 
             help_message
             ;;              
