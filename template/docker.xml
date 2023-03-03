@@ -92,8 +92,8 @@
   RewriteRule ^/nospider/         -   [F]</rules>
     </rewrite>
     <vhssl>
-      <keyFile>/root/.acme.sh/certs/$VH_NAME/$VH_NAME.key</keyFile>
-      <certFile>/root/.acme.sh/certs/$VH_NAME/fullchain.cer</certFile>
+      <keyFile>/root/.acme.sh/certs/$VH_NAME_ecc/$VH_NAME.key</keyFile>
+      <certFile>/root/.acme.sh/certs/$VH_NAME_ecc/fullchain.cer</certFile>
       <certChain>1</certChain>
     </vhssl>
     <frontPage>
