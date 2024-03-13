@@ -11,7 +11,7 @@ on:
       - master
 env:
   FOLDER: template
-  LSWS_VERSION: 6.1.2
+  LSWS_VERSION: 6.2.1
 
 jobs:
   test:
