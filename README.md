@@ -4,7 +4,7 @@
 [<img src="https://img.shields.io/badge/slack-LiteSpeed-blue.svg?logo=slack">](litespeedtech.com/slack) 
 [<img src="https://img.shields.io/twitter/follow/litespeedtech.svg?label=Follow&style=social">](https://twitter.com/litespeedtech)
 
-Install a lightweight LiteSpeed container using Stable version in Ubuntu 18.04 Linux.
+Install a lightweight LiteSpeed container using Stable version in Ubuntu 24.04 Linux.
 
 ### Prerequisites
 *  [Install Docker](https://www.docker.com/)
