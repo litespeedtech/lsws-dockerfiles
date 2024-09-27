@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install wget curl tzdata cron -y
 COPY lsws-install.sh /
 RUN chmod +x /lsws-install.sh && bash /lsws-install.sh $LSWS_VERSION
 
+RUN wget -O - https://repo.litespeed.sh | bash
+
 RUN apt-get install mysql-client $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
     $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
 
