@@ -30,11 +30,11 @@ docker pull litespeedtech/litespeed:6.2.2-lsphp83
 ```
 ### Starting a Container
 ```
-docker run --name litespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtech/litespeed-beta:latest
+docker run --name litespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtech/litespeed:latest
 ```
 You can also run with Detached mode, like so:
 ```
-docker run -d --name litespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtech/litespeed-beta:latest
+docker run -d --name litespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtech/litespeed:latest
 ```
 Tip, you can get rid of `-p 7080:7080` from the command if you don’t need the web admin access.  
 
@@ -43,7 +43,7 @@ Note: The container will auto-apply a 15-day trial license. Please contact LiteS
 ### Adding a sample page
 The server should start running successfully, and you should be able to log into the container. Add some files you want to display with the following command:
 ```
-docker exec -it openlitespeed bash
+docker exec -it litespeed bash
 ```
 Your default `WORKDIR` should be `/var/www/vhosts/`, since the default document root path is `/var/www/vhosts/localhost/html`. Simply add the following command to `index.php`, then we can verify it from the browser with a public server IP address on both HTTP and HTTPS. 
 ```

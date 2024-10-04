@@ -69,7 +69,8 @@
         <name>$VH_NAME_lsphp</name>
         <address>uds://tmp/lshttpd/$VH_NAME_lsphp.sock</address>
         <maxConns>35</maxConns>
-        <env>PHP_LSAPI_CHILDREN=35</env>        
+        <env>PHP_LSAPI_CHILDREN=35</env>
+        <env>LSAPI_AVOID_FORK=200M</env>               
         <initTimeout>60</initTimeout>
         <retryTimeout>0</retryTimeout>
         <respBuffer>0</respBuffer>
@@ -79,10 +80,10 @@
         <instances>1</instances>
         <extMaxIdleTime>-1</extMaxIdleTime>
         <priority>0</priority>
-        <memSoftLimit>2047M</memSoftLimit>
-        <memHardLimit>2047M</memHardLimit>
-        <procSoftLimit>3000</procSoftLimit>
-        <procHardLimit>4000</procHardLimit>
+        <memSoftLimit></memSoftLimit>
+        <memHardLimit></memHardLimit>
+        <procSoftLimit></procSoftLimit>
+        <procHardLimit></procHardLimit>
       </extProcessor>
     </extProcessorList>    
     <rewrite>

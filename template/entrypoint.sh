@@ -11,8 +11,8 @@ if [ ! -e ${LSDIR}/conf/serial.no ] && [ ! -e ${LSDIR}/conf/license.key ]; then
     rm -f ${LSDIR}/conf/trial.key*
     wget -P ${LSDIR}/conf/ http://license.litespeedtech.com/reseller/trial.key
 fi
-chown 999:999 ${LSDIR}/conf/ -R
-chown 999:1000 ${LSDIR}/admin/conf/ -R
+chown 994:994 ${LSDIR}/conf/ -R
+chown 994:1001 ${LSDIR}/admin/conf/ -R
 
 /usr/local/lsws/bin/lswsctrl start
 $@

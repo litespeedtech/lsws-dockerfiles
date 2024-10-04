@@ -17,9 +17,9 @@ echow(){
 help_message(){
     echo -e "\033[1mOPTIONS\033[0m" 
     echow '-L, --lsws [VERSION] -P, --php [lsphpVERSION]'
-    echo "${EPACE}${EPACE}Example: bash build.sh --lsws 5.4.6 --php lsphp74"
+    echo "${EPACE}${EPACE}Example: bash build.sh --lsws 6.3.1 --php lsphp83"
     echow '--push'
-    echo "${EPACE}${EPACE}Example: build.sh --lsws 5.4.6 --php lsphp74 --push, will push to the dockerhub"
+    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.1 --php lsphp83 --push, will push to the dockerhub"
     exit 0
 }
 

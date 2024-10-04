@@ -31,7 +31,7 @@ ADD httpd_config.conf $LS_FD/conf/httpd_config.conf
 ADD htpasswd $LS_FD/admin/conf/htpasswd
 
 RUN $LS_FD/bin/setup_docker.sh $PHP_VERSION && rm $LS_FD/bin/setup_docker.sh
-RUN chown 999:999 $LS_FD/conf -R
+RUN chown 994:994 $LS_FD/conf -R
 RUN cp -RP $LS_FD/conf/ $LS_FD/.conf/
 RUN cp -RP $LS_FD/admin/conf $LS_FD/admin/.conf/
 RUN ["/bin/bash", "-c", "if [[ $PHP_VERSION == lsphp8* ]]; then ln -sf $LS_FD/$PHP_VERSION/bin/lsphp $LS_FD/fcgi-bin/lsphp8; fi"]
