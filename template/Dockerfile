@@ -1,8 +1,8 @@
 FROM ubuntu:24.04
-ENV LS_FD='/usr/local/lsws'
-
 ARG LSWS_VERSION
 ARG PHP_VERSION
+ENV LS_FD='/usr/local/lsws'
+ENV PHPINI_PATH="$LS_FD/$PHP_VERSION/etc/php/*/litespeed/php.ini"
 
 RUN apt-get update && apt-get install wget curl tzdata cron -y
 
@@ -13,6 +13,11 @@ RUN wget -O - https://repo.litespeed.sh | bash
 
 RUN apt-get install mysql-client $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
     $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
+
+RUN sed -i 's/memory_limit = 128M/memory_limit = 1024M/g' $PHPINI_PATH && \
+    sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 1024M/g' $PHPINI_PATH && \
+    sed -i 's/post_max_size = 8M/post_max_size = 1024M/g' $PHPINI_PATH && \
+    sed -i 's/max_execution_time = 30/max_execution_time = 300/g' $PHPINI_PATH
 
 RUN ["/bin/bash", "-c", "if [[ $PHP_VERSION == lsphp7* ]]; then apt-get install $PHP_VERSION-json -y; fi"]
 
