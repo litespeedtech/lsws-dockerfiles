@@ -89,8 +89,7 @@
     <rewrite>
       <enable>1</enable>
       <logLevel>0</logLevel>
-      <rules>RewriteCond %{HTTP_USER_AGENT}  ^NameOfBadRobot
-  RewriteRule ^/nospider/         -   [F]</rules>
+      <rules></rules>
     </rewrite>
     <vhssl>
       <keyFile>/root/.acme.sh/certs/$VH_NAME_ecc/$VH_NAME.key</keyFile>
