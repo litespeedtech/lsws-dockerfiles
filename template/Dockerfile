@@ -1,13 +1,23 @@
 FROM ubuntu:24.04
 ARG LSWS_VERSION
 ARG PHP_VERSION
+ARG TARGETPLATFORM
+
 ENV LS_FD='/usr/local/lsws'
 ENV PHPINI_PATH="$LS_FD/$PHP_VERSION/etc/php/*/litespeed/php.ini"
 
 RUN apt-get update && apt-get install wget curl tzdata cron -y
 
 COPY lsws-install.sh /
-RUN chmod +x /lsws-install.sh && bash /lsws-install.sh $LSWS_VERSION
+RUN chmod +x /lsws-install.sh
+
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
+        bash /lsws-install.sh --lsws $LSWS_VERSION --arch x86_64; \
+    elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+        bash /lsws-install.sh --lsws $LSWS_VERSION --arch aarch64; \
+    else \
+        echo "$TARGETPLATFORM is not supported"; \
+    fi
 
 RUN wget -O - https://repo.litespeed.sh | bash
 
@@ -32,7 +42,6 @@ ENV PATH="/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin"
 
 ADD docker.xml $LS_FD/conf/templates/docker.xml
 ADD setup_docker.sh $LS_FD/bin/setup_docker.sh
-#ADD httpd_config.conf $LS_FD/conf/httpd_config.conf
 ADD htpasswd $LS_FD/admin/conf/htpasswd
 
 RUN $LS_FD/bin/setup_docker.sh $PHP_VERSION && rm $LS_FD/bin/setup_docker.sh

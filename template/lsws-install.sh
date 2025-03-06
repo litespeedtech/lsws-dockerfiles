@@ -3,15 +3,29 @@ USER='nobody'
 GROUP='nogroup'
 ADMIN_PASS='litespeed'
 LSDIR='/usr/local/lsws'
-LSWS_MAIN='5'
+LSWS_MAIN='6'
 LSWS_VERSION=''
+EPACE='        '
+ARCH='x86_64'
+
+echow(){
+    FLAG=${1}
+    shift
+    echo -e "\033[1m${EPACE}${FLAG}\033[0m${@}"
+}
+
+help_message(){
+    echo -e "\033[1mOPTIONS\033[0m"
+    echow '-L, --lsws [VERSION]'
+    echo "${EPACE}${EPACE}Example: bash lsws_install.sh --lsws 6.3.1"
+    echow '--arch'
+    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.1 --arch [x86_64|aarch64], will build image for amd64 or arm64"
+    exit 0
+}
 
 check_input(){
     if [ -z "${1}" ]; then
-        echo 'Please specify a version!'
-        exit 1
-    else
-        LSWS_VERSION="${1}"
+        help_message
     fi
 }
 
@@ -32,8 +46,8 @@ get_main_ver(){
 }
 
 lsws_download(){
-    wget -q --no-check-certificate https://www.litespeedtech.com/packages/${LSWS_MAIN}.0/lsws-${LSWS_VERSION}-ent-x86_64-linux.tar.gz
-    tar xzf lsws-*-ent-x86_64-linux.tar.gz && rm -f lsws-*.tar.gz
+    wget -q --no-check-certificate https://www.litespeedtech.com/packages/${LSWS_MAIN}.0/lsws-${LSWS_VERSION}-ent-${ARCH}-linux.tar.gz
+    tar xzf lsws-*-ent-${ARCH}-linux.tar.gz && rm -f lsws-*.tar.gz
     cd lsws-${LSWS_VERSION}
     add_trial
 }
@@ -97,8 +111,25 @@ lsws_restart(){
     ${LSDIR}/bin/lswsctrl start
 }
 
-main(){
-    check_input ${1}
+check_input ${1}
+while [ ! -z "${1}" ]; do
+    case ${1} in
+        -[lL] | -lsws | --lsws) shift
+            check_input "${1}"
+            LSWS_VERSION="${1}"
+            ;;
+        -[aA] | -arch | --arch) shift
+            check_input "${1}"
+            ARCH="${1}"
+            ;;
+        *)
+            help_message
+            ;;                
+    esac
+    shift
+done
+
+main(){    
     basic_install
     get_main_ver
     lsws_download
@@ -112,4 +143,4 @@ main(){
     del_trial
 }
 
-main ${1}
+main ${1} ${2}
