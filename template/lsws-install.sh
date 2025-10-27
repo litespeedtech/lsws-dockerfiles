@@ -17,9 +17,9 @@ echow(){
 help_message(){
     echo -e "\033[1mOPTIONS\033[0m"
     echow '-L, --lsws [VERSION]'
-    echo "${EPACE}${EPACE}Example: bash lsws_install.sh --lsws 6.3.1"
+    echo "${EPACE}${EPACE}Example: bash lsws_install.sh --lsws 6.3.4"
     echow '--arch'
-    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.1 --arch [x86_64|aarch64], will build image for amd64 or arm64"
+    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.4 --arch [x86_64|aarch64], will build image for amd64 or arm64"
     exit 0
 }
 
