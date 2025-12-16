@@ -37,7 +37,7 @@ build_image(){
         help_message
     else
         echo "${1} ${2}"
-        docker buildx build . --platform ${ARCH} --tag ${BUILDER}/${REPO}:${1}-${2} --build-arg LSWS_VERSION=${1} --build-arg PHP_VERSION=${2}
+        docker buildx build . --platform linux/amd64 --tag ${BUILDER}/${REPO}:${1}-${2} --build-arg LSWS_VERSION=${1} --build-arg PHP_VERSION=${2} --load
     fi    
 }
 
