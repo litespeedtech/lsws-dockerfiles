@@ -4,7 +4,7 @@
 [<img src="https://img.shields.io/badge/slack-LiteSpeed-blue.svg?logo=slack">](litespeedtech.com/slack) 
 [<img src="https://img.shields.io/twitter/follow/litespeedtech.svg?label=Follow&style=social">](https://twitter.com/litespeedtech)
 
-Install a lightweight LiteSpeed container using Stable version in Ubuntu 24.04 Linux.
+Install a lightweight LiteSpeed container using Stable version in Ubuntu 26.04 Linux.
 
 ### Prerequisites
 *  [Install Docker](https://www.docker.com/)
@@ -14,7 +14,7 @@ The system will regulary build LiteSpeed Latest stable version, along with the l
 
 |Component|Version|
 | :-------------: | :-------------: |
-|Linux|Ubuntu 24.04|
+|Linux|Ubuntu 26.04|
 |LiteSpeed|[Latest stable version](https://www.litespeedtech.com/products/litespeed-web-server/download)|
 |PHP|[Latest stable version](http://rpms.litespeedtech.com/debian/)|
 
@@ -26,7 +26,7 @@ docker pull litespeedtech/litespeed:latest
 ```
 or specify the LiteSpeed version with lsphp version
 ```
-docker pull litespeedtech/litespeed:6.3.4-lsphp84
+docker pull litespeedtech/litespeed:6.3.5-lsphp85
 ```
 ### Starting a Container
 ```
@@ -67,7 +67,7 @@ For example,
 ```
 git clone https://github.com/litespeedtech/lsws-dockerfiles.git
 cd lsws-dockerfiles/template
-bash build.sh -L 6.3.4 -P lsphp84
+bash build.sh -L 6.3.5 -P lsphp85
 ```
 
 ## Support & Feedback

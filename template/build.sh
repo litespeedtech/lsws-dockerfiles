@@ -18,11 +18,11 @@ echow(){
 help_message(){
     echo -e "\033[1mOPTIONS\033[0m" 
     echow '-L, --lsws [VERSION] -P, --php [lsphpVERSION]'
-    echo "${EPACE}${EPACE}Example: bash build.sh --lsws 6.3.4 --php lsphp84"
+    echo "${EPACE}${EPACE}Example: bash build.sh --lsws 6.3.5 --php lsphp85"
     echow '--push'
-    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.4 --php lsphp84 --push, will push to the dockerhub"
+    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.5 --php lsphp85 --push, will push to the dockerhub"
     echow '--arch'
-    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.4 --php lsphp84 --arch linux/amd64,linux/arm64, will build image for both amd64 and arm64, otherwise linux/amd64 will be applied."        
+    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.5 --php lsphp85 --arch linux/amd64,linux/arm64, will build image for both amd64 and arm64, otherwise linux/amd64 will be applied."        
     exit 0
 }
 
@@ -45,8 +45,7 @@ test_image(){
     ID=$(docker run -d ${BUILDER}/${REPO}:${1}-${2})
     sleep 1
     docker exec -i ${ID} su -c 'mkdir -p /var/www/vhosts/localhost/html/ \
-    && echo "<?php phpinfo();" > /var/www/vhosts/localhost/html/index.php \
-    && /usr/local/lsws/bin/lswsctrl restart >/dev/null '
+    && echo "<?php phpinfo();" > /var/www/vhosts/localhost/html/index.php'
 
     HTTP=$(docker exec -i ${ID} curl -s -o /dev/null -Ik -w "%{http_code}" http://localhost)
     HTTPS=$(docker exec -i ${ID} curl -s -o /dev/null -Ik -w "%{http_code}" https://localhost)

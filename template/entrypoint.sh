@@ -11,11 +11,12 @@ if [ ! -e ${LSDIR}/conf/serial.no ] && [ ! -e ${LSDIR}/conf/license.key ]; then
     rm -f ${LSDIR}/conf/trial.key*
     wget -P ${LSDIR}/conf/ http://license.litespeedtech.com/reseller/trial.key
 fi
-chown 994:994 ${LSDIR}/conf/ -R
-chown 994:1001 ${LSDIR}/admin/conf/ -R
+chown -R lsadm:lsadm /usr/local/lsws/conf
+chown -R lsadm:lsadm /usr/local/lsws/admin/conf
+chmod -R u=rwX,go= /usr/local/lsws/admin/conf
 
 /usr/local/lsws/bin/lswsctrl start
-$@
+"$@"
 while true; do
 	if ! ${LSDIR}/bin/lswsctrl status | grep 'litespeed is running with PID *' > /dev/null; then
 		break
