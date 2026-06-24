@@ -29,7 +29,7 @@ RUN set -eux; \
 RUN set -eux; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-        mysql-client \
+        mysql-client ed unzip \
         $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql \
         $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis \
         $PHP_VERSION-memcached $PHP_VERSION-intl; \
