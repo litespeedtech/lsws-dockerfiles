@@ -4,6 +4,7 @@ PHP_VERSION=''
 PUSH=''
 CONFIG=''
 TAG=''
+TAG_ALIAS=''
 BUILDER='litespeedtech'
 REPO='litespeed'
 EPACE='        '
@@ -21,6 +22,8 @@ help_message(){
     echo "${EPACE}${EPACE}Example: bash build.sh --lsws 6.3.5 --php lsphp85"
     echow '--push'
     echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.5 --php lsphp85 --push, will push to the dockerhub"
+    echow '--tag-alias [TAG]'
+    echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.5 --php lsphp85 --tag latest --tag-alias latest-lsphp85 --push"
     echow '--arch'
     echo "${EPACE}${EPACE}Example: build.sh --lsws 6.3.5 --php lsphp85 --arch linux/amd64,linux/arm64, will build image for both amd64 and arm64, otherwise linux/amd64 will be applied."        
     exit 0
@@ -65,11 +68,16 @@ push_image(){
         if [ -f ~/.docker/litespeedtech/config.json ]; then
             CONFIG=$(echo --config ~/.docker/litespeedtech)
         fi
+        local tags=()
         if [ -z "${TAG}" ]; then
-                docker buildx build . --platform ${ARCH} --tag ${BUILDER}/${REPO}:${1}-${2} --build-arg LSWS_VERSION=${1} --build-arg PHP_VERSION=${2} --output=type=registry --push
+            tags+=(--tag "${BUILDER}/${REPO}:${1}-${2}")
         else
-            docker buildx build . --platform ${ARCH} --tag ${BUILDER}/${REPO}:${3} --build-arg LSWS_VERSION=${1} --build-arg PHP_VERSION=${2} --output=type=registry --push
+            tags+=(--tag "${BUILDER}/${REPO}:${3}")
         fi
+        if [ -n "${TAG_ALIAS}" ]; then
+            tags+=(--tag "${BUILDER}/${REPO}:${TAG_ALIAS}")
+        fi
+        docker buildx build . --platform ${ARCH} "${tags[@]}" --build-arg LSWS_VERSION=${1} --build-arg PHP_VERSION=${2} --output=type=registry --push
     else
         echo 'Skip Push.'    
     fi
@@ -97,6 +105,10 @@ while [ ! -z "${1}" ]; do
             ;;
         -[tT] | -tag | -TAG | --tag) shift
             TAG="${1}"
+            ;;
+        --tag-alias) shift
+            check_input "${1}"
+            TAG_ALIAS="${1}"
             ;;
         -[aA] | -arch | --arch) shift
             check_input "${1}"
